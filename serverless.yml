@@ -4,13 +4,75 @@ org: hramirezq
 app: force
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: force-api
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs20.x
+  environment:
+    DEBUG: ${env:DEBUG, 0}
+    STAGE: ${env:STAGE, "prod"}
+    DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
+
+
+custom:
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
+      - AWS_REGION
+      - DATABASE_URL
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 9000
+      inMemory: true
+      migrate: true
+      seed: true
+      noStart: false
+  esbuild:
+    bundle: true
+    minify: false
+    watch:
+      pattern: [ 'src/**/*.ts' ] # match only typescript files in src directory
+      ignore: [ 'temp/**/*' ]
+
+plugins:
+  - serverless-dynamodb
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+build:
+  esbuild: false
+
+resources:
+  Resources:
+    CharacterTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Characters
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
 
 functions:
-  api:
-    handler: handler.handler
+  createCharacter:
+    handler: src/infrastructure/api/createCharacter.handler
+    timeout: 20
     events:
-      - httpApi: "*"
+      - http:
+          path: characters
+          method: post
+  getCharacter:
+    handler: src/infrastructure/api/getCharacter.handler
+    timeout: 20
+    events:
+      - http:
+          path: characters/{id}
+          method: get

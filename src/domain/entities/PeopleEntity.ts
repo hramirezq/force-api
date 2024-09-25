@@ -1,5 +1,6 @@
 export class PeopleEntity {
-    id: string;
+    uuid: string;
+    id: number;
     birth_year: string;
     eye_color: string;
     films: string[];
@@ -15,7 +16,8 @@ export class PeopleEntity {
     url: string;
     vehicles: string[];
     constructor(
-        id:string,
+        uuid:string,
+        id:number,
         birth_year:string,
         eye_color:string,
         films: string[],
@@ -31,6 +33,7 @@ export class PeopleEntity {
         url: string,
         vehicles: string[],
     ) {
+        this.uuid = uuid;
         this.id = id;
         this.birth_year = birth_year;
         this.eye_color = eye_color;

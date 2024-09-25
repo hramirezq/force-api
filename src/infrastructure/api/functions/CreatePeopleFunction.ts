@@ -1,12 +1,12 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from 'aws-lambda';
-import { DynamoDBPeopleRepository } from '../repositories/DynamoDBPeopleRepository';
-import {CreatePeopleHandler} from "../../application/commands/CreatePeopleHandler";
-import {CreatePeopleCommand} from "../../application/commands/CreatePeopleCommand";
-import {CreatePeopleInput} from "./inputs/CreatePeopleInput";
-import {CreatePeopleMapper} from "../mappers/CreatePeopleMapper";
-import {PeopleRepository as PeopleRepositoryInterface} from "../../domain/repositories/PeopleRepository";
-import {TranslateService} from "../../domain/services/TranslateService";
-import {TranslateServiceImpl} from "../services/TranslateServiceImpl";
+import { DynamoDBPeopleRepository } from '../../repositories/DynamoDBPeopleRepository';
+import {CreatePeopleHandler} from "../../../application/commands/CreatePeopleHandler";
+import {CreatePeopleCommand} from "../../../application/commands/CreatePeopleCommand";
+import {CreatePeopleInput} from "../inputs/CreatePeopleInput";
+import {CreatePeopleMapper} from "../../mappers/CreatePeopleMapper";
+import {PeopleRepository as PeopleRepositoryInterface} from "../../../domain/repositories/PeopleRepository";
+import {TranslateService} from "../../../domain/services/TranslateService";
+import {TranslateServiceImpl} from "../../services/TranslateServiceImpl";
 
 export class CreatePeopleFunction {
   private readonly createPeopleHandler: CreatePeopleHandler;

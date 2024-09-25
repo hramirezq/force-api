@@ -1,5 +1,5 @@
 export class CreatePeopleCommand {
-    id: string;
+    id: number;
     birth_year: string;
     eye_color: string;
     films: string[];
@@ -15,7 +15,7 @@ export class CreatePeopleCommand {
     url: string;
     vehicles: string[];
     constructor(
-        id:string,
+        id:number,
         birth_year:string,
         eye_color:string,
         films: string[],

@@ -1,4 +1,5 @@
 export class CreatePeopleInput {
+    id: number;
     nombre: string;
     año_de_nacimiento: string;
     color_de_ojos: string;
@@ -15,6 +16,7 @@ export class CreatePeopleInput {
     url: string;
 
     constructor(
+        id: number,
         nombre: string,
         año_de_nacimiento: string,
         color_de_ojos: string,
@@ -30,6 +32,7 @@ export class CreatePeopleInput {
         vehiculos: string[],
         url: string
     ) {
+        this.id = id;
         this.nombre = nombre;
         this.año_de_nacimiento = año_de_nacimiento;
         this.color_de_ojos = color_de_ojos;

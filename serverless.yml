@@ -46,7 +46,9 @@ plugins:
 
 build:
   esbuild: false
-
+package:
+  exclude:
+    - node_modules/**
 resources:
   Resources:
     PeopleTable:
@@ -54,25 +56,32 @@ resources:
       Properties:
         TableName: Peoples
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: uuid
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: uuid
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
 
 functions:
   createPeople:
-    handler: src/infrastructure/api/CreatePeopleFunction.createPeople
-    timeout: 20
+    handler: src/infrastructure/api/functions/CreatePeopleFunction.createPeople
+    timeout: 30
     events:
       - http:
           path: people
           method: post
   getPeople:
-    handler: src/infrastructure/api/GetPeopleFunction.handler
-    timeout: 20
+    handler: src/infrastructure/api/functions/GetPeopleFunction.getPeople
+    timeout: 30
     events:
       - http:
           path: people/{id}
+          method: get
+  getAllPeople:
+    handler: src/infrastructure/api/functions/GetAllPeopleStorageFunction.getAllPeople
+    timeout: 30
+    events:
+      - http:
+          path: people/
           method: get

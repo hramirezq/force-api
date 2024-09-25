@@ -1,5 +1,6 @@
 export const dictionarySpanishToEnglish: Map<string, string> = new Map<string, string>(
     [
+        ['id', 'id'],
         ['nombre', 'name'],
         ['año_de_nacimiento', 'birth_year'],
         ['color_de_ojos', 'eye_color'],

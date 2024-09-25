@@ -10,7 +10,7 @@ export class CreatePeopleMapper {
     }
 
     fromInputToCommand(object: CreatePeopleInput): CreatePeopleCommand{
-        console.log("test");
+        console.log("create people input", object);
         return this.translateService.translateFromSpanishToEnglish(object);
     }
 

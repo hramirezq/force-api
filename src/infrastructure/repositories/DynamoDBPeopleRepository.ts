@@ -15,8 +15,8 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
   private readonly tableName = 'Peoples';
 
   async save(people: PeopleEntity): Promise<void> {
-    const id = uuidv4();
-    people.id = id;
+    const uuid = uuidv4();
+    people.uuid = uuid;
     console.log("repository people ", people);
     await dynamoDB.put({
       TableName: this.tableName,
@@ -24,7 +24,7 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
     }).promise();
   }
 
-  async findById(id: string): Promise<PeopleEntity | null> {
+  async findByUuid(id: string): Promise<PeopleEntity | null> {
       console.log('repository id:', id);
     const result = await dynamoDB.get({
       TableName: this.tableName,
@@ -32,5 +32,28 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
     }).promise();
 
     return result.Item as PeopleEntity || null;
+  }
+  async findById(id: number): Promise<PeopleEntity | null> {
+    console.log('repository id:', id);
+    const params = {
+        TableName: this.tableName,
+        Limit : 1,
+        FilterExpression: 'id = :id',
+        ExpressionAttributeValues: {
+             ':id': 'id'
+        }
+    };
+    const result = await dynamoDB.scan(params).promise();
+    let firstItem = null;
+    if (result.Items && result.Items.length > 0)
+    firstItem = result.Items[0];
+    return firstItem as PeopleEntity || null;
+  }
+  async findAll(): Promise<Array<PeopleEntity> | null > {
+    const params = {
+        TableName: this.tableName,
+    };
+    const result = await dynamoDB.scan(params).promise();
+    return result.Items as Array<PeopleEntity> || null;
   }
 }

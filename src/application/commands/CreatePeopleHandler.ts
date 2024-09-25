@@ -11,6 +11,7 @@ export class CreatePeopleHandler {
 
     async handler(command: CreatePeopleCommand) {
         const people = new PeopleEntity(
+            "",
             command.id,
             command.birth_year,
             command.eye_color,

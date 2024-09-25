@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import { PeopleRepository } from '../../domain/repositories/PeopleRepository';
 import { PeopleEntity } from '../../domain/entities/PeopleEntity';
+import { v4 as uuidv4 } from "uuid";
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient({
     region: process.env.AWS_REGION,
@@ -14,6 +15,9 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
   private readonly tableName = 'Peoples';
 
   async save(people: PeopleEntity): Promise<void> {
+    const id = uuidv4();
+    people.id = id;
+    console.log("repository people ", people);
     await dynamoDB.put({
       TableName: this.tableName,
       Item: people,

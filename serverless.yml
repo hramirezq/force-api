@@ -49,10 +49,10 @@ build:
 
 resources:
   Resources:
-    CharacterTable:
+    PeopleTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: Characters
+        TableName: Peoples
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -62,17 +62,17 @@ resources:
         BillingMode: PAY_PER_REQUEST
 
 functions:
-  createCharacter:
+  createPeople:
     handler: src/infrastructure/api/CreatePeopleFunction.createPeople
     timeout: 20
     events:
       - http:
-          path: characters
+          path: people
           method: post
-  getCharacter:
+  getPeople:
     handler: src/infrastructure/api/GetPeopleFunction.handler
     timeout: 20
     events:
       - http:
-          path: characters/{id}
+          path: people/{id}
           method: get

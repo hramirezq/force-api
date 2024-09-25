@@ -44,7 +44,52 @@ export class CreatePeopleInput {
         this.naves = naves;
         this.vehiculos = vehiculos;
         this.url = url;
-
     }
 
+    static validate(data: CreatePeopleInput) : String{
+        if (data.nombre == null || data.nombre == "") {
+            return "El campo nombre es requerido."
+        }
+        if (data.año_de_nacimiento == null || data.año_de_nacimiento == "") {
+            return "El campo año_de_nacimiento es requerido.";
+        }
+        if (data.color_de_ojos == null || data.color_de_ojos == "") {
+            return "El campo color_de_ojos es requerido.";
+        }
+        if (data.genero == null || data.genero == "") {
+            return "El campo genero es requerido."
+        }
+        if (data.color_de_pelo == null || data.color_de_pelo == "") {
+            return "El campo color_de_pelo es requerido."
+        }
+        if (data.peso == null || data.peso == "") {
+            return "El campo peso es requerido."
+        }
+        if (data.masa == null || data.masa == "") {
+            return "El campo masa es requerido."
+        }
+        if (data.color_de_piel == null || data.color_de_piel == "") {
+            return "El campo color_de_piel es requerido."
+        }
+        if (data.mundo_natal == null || data.mundo_natal == "") {
+            return "El campo mundo_natal es requerido."
+        }
+        if (data.peliculas == undefined) {
+            return "El campo peliculas es requerido."
+        }
+        if (data.especies == undefined) {
+            return "El campo especies es requerido."
+        }
+        if (data.naves == undefined) {
+            return "El campo naves es requerido."
+        }
+        if (data.vehiculos == undefined) {
+            return "El campo vehiculos es requerido."
+        }
+        if (data.url == undefined) {
+            return "El campo url es requerido."
+        }
+
+        return "";
+    }
 }

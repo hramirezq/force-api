@@ -63,14 +63,14 @@ resources:
 
 functions:
   createCharacter:
-    handler: src/infrastructure/api/createCharacter.handler
+    handler: src/infrastructure/api/CreatePeopleFunction.createPeople
     timeout: 20
     events:
       - http:
           path: characters
           method: post
   getCharacter:
-    handler: src/infrastructure/api/getCharacter.handler
+    handler: src/infrastructure/api/GetPeopleFunction.handler
     timeout: 20
     events:
       - http:

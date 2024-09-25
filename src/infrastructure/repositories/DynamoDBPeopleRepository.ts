@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
-import { CharacterRepository } from '../../domain/repositories/CharacterRepository';
-import { Character } from '../../domain/entities/Character';
+import { PeopleRepository } from '../../domain/repositories/PeopleRepository';
+import { PeopleEntity } from '../../domain/entities/PeopleEntity';
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient({
     region: process.env.AWS_REGION,
@@ -10,23 +10,23 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient({
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
     },
   });
-export class DynamoDBCharacterRepository implements CharacterRepository {
-  private readonly tableName = 'Characters';
+export class DynamoDBPeopleRepository implements PeopleRepository {
+  private readonly tableName = 'Peoples';
 
-  async save(character: Character): Promise<void> {
+  async save(people: PeopleEntity): Promise<void> {
     await dynamoDB.put({
       TableName: this.tableName,
-      Item: character,
+      Item: people,
     }).promise();
   }
 
-  async findById(id: string): Promise<Character | null> {
+  async findById(id: string): Promise<PeopleEntity | null> {
       console.log('repository id:', id);
     const result = await dynamoDB.get({
       TableName: this.tableName,
       Key: { id },
     }).promise();
 
-    return result.Item as Character || null;
+    return result.Item as PeopleEntity || null;
   }
 }

@@ -1,36 +1,36 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import axios from 'axios';
-import { CharacterRepository } from '../../domain/repositories/CharacterRepository'
-import { DynamoDBCharacterRepository } from '../repositories/DynamoDBCharacterRepository';
+import { PeopleRepository } from '../../domain/repositories/PeopleRepository'
+import { DynamoDBPeopleRepository } from '../repositories/DynamoDBPeopleRepository';
 
-const characterRepository: CharacterRepository = new DynamoDBCharacterRepository();
+const peopleRepository: PeopleRepository = new DynamoDBPeopleRepository();
 
 export const handler: APIGatewayProxyHandler = async (event) => {
   console.log(JSON.stringify(event));
   const { id } = event.pathParameters || {};
   console.log("Id from pathParameters:", id)
   // Busca en la base de datos
-  let character = await characterRepository.findById(id);
+  let people = await peopleRepository.findById(id);
   console.log(process.env.AWS_ACCESS_KEY_ID);
-  console.log('character from DB',character);
-  if (!character) {
+  console.log('people from DB',people);
+  if (!people) {
     // Si no se encuentra, consulta SWAPI
     const response = await axios.get(`https://swapi.dev/api/people/${id}`);
     console.log('response swapi',response);
     if (response.status === 200) {
-      character = {
+      people = {
         id,
         name: response.data.name,
       };
       // Guarda el personaje en la base de datos
-      await characterRepository.save(character);
+      await peopleRepository.save(people);
     } else {
-      return { statusCode: 404, body: 'Character not found' };
+      return { statusCode: 404, body: 'People not found' };
     }
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(character),
+    body: JSON.stringify(people),
   };
 };

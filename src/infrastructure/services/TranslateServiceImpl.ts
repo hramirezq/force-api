@@ -12,7 +12,6 @@ export class TranslateServiceImpl<Type> implements TranslateService<Type> {
     }
 
     translate<Type>(obj: any, dictionary: Map<string, string>): Type {
-        console.log("Translate object input",obj);
         const translatedObj: any = {};
         for (const key in obj) {
             const translatedKey = dictionary.get(key);
@@ -22,7 +21,6 @@ export class TranslateServiceImpl<Type> implements TranslateService<Type> {
                 console.warn(`Clave no encontrada: ${key}`);
             }
         }
-        console.log("Translated object",translatedObj);
         return translatedObj as Type;
     }
 

@@ -10,7 +10,6 @@ export class GetPeopleByIdHandler {
     }
 
     async handler(query: GetPeopleByIdQuery) {
-        console.log("llega aqui")
         return await this.peopleRepository.findById(query.id);
     }
 }

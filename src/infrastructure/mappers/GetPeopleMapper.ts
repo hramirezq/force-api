@@ -11,7 +11,6 @@ export class GetPeopleMapper {
     }
 
     fromEntityToOutput(object: PeopleEntity | CreatePeopleCommand): GetPeopleOutput{
-        console.log("fromEntityToOutput", object);
         return this.translateService.translateFromEnglishToSpanish(object);
     }
 

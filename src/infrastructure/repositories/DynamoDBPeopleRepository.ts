@@ -3,21 +3,21 @@ import { PeopleRepository } from '../../domain/repositories/PeopleRepository';
 import { PeopleEntity } from '../../domain/entities/PeopleEntity';
 import { v4 as uuidv4 } from "uuid";
 
+AWS.config.update({
+    region: process.env.AWS_REGION,
+});
+
 const dynamoDB = new AWS.DynamoDB.DocumentClient({
     region: process.env.AWS_REGION,
-    endpoint: process.env.DATABASE_URL,
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-    },
-  });
+    ...(process.env.STAGE === 'prod' ? {} : { endpoint: process.env.DATABASE_URL || "http://localhost:9000" }),
+});
+
 export class DynamoDBPeopleRepository implements PeopleRepository {
   private readonly tableName = 'Peoples';
 
   async save(people: PeopleEntity): Promise<void> {
     const uuid = uuidv4();
     people.uuid = uuid;
-    console.log("repository people ", people);
     await dynamoDB.put({
       TableName: this.tableName,
       Item: people,
@@ -25,7 +25,6 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
   }
 
   async findByUuid(id: string): Promise<PeopleEntity | null> {
-      console.log('repository id:', id);
     const result = await dynamoDB.get({
       TableName: this.tableName,
       Key: { id },
@@ -34,20 +33,28 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
     return result.Item as PeopleEntity || null;
   }
   async findById(id: number): Promise<PeopleEntity | null> {
-    console.log('repository id:', id);
-    const params = {
-        TableName: this.tableName,
-        Limit : 1,
-        FilterExpression: 'id = :id',
-        ExpressionAttributeValues: {
-             ':id': 'id'
-        }
-    };
-    const result = await dynamoDB.scan(params).promise();
-    let firstItem = null;
-    if (result.Items && result.Items.length > 0)
-    firstItem = result.Items[0];
-    return firstItem as PeopleEntity || null;
+      const params = {
+          TableName: this.tableName,
+          FilterExpression: '#id = :idValue',
+          ExpressionAttributeNames: {
+              '#id': 'id'
+          },
+          ExpressionAttributeValues: {
+              ':idValue': id
+          }
+      };
+
+      try {
+          const result = await dynamoDB.scan(params).promise();
+          console.log("result from dynamodb",result)
+          if (result.Items && result.Items.length > 0) {
+              return result.Items[0] as PeopleEntity;
+          }
+          return null;
+      } catch (error) {
+          console.error('Error finding people by id:', error);
+          throw error;
+      }
   }
   async findAll(): Promise<Array<PeopleEntity> | null > {
     const params = {

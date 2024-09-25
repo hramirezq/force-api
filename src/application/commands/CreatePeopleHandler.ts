@@ -28,7 +28,6 @@ export class CreatePeopleHandler {
             command.url,
             command.vehicles,
         );
-        console.log(people);
         await this.peopleRepository.save(people);
     }
 

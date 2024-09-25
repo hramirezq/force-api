@@ -9,11 +9,20 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs20.x
+  region: us-east-1
   environment:
     DEBUG: ${env:DEBUG, 0}
     STAGE: ${env:STAGE, "prod"}
     DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
-
+  credentials:
+    accessKeyId: ${env:AWS_ACCESS_KEY_ID}
+    secretAccessKey: ${env:AWS_SECRET_ACCESS_KEY}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:343218203795:table/Peoples
 
 custom:
   dotenv:
@@ -40,6 +49,7 @@ custom:
       ignore: [ 'temp/**/*' ]
 
 plugins:
+#  - serverless-plugin-typescript
   - serverless-dynamodb
   - serverless-dotenv-plugin
   - serverless-offline
@@ -47,8 +57,6 @@ plugins:
 build:
   esbuild: false
 package:
-  exclude:
-    - node_modules/**
     - tests/**
 resources:
   Resources:

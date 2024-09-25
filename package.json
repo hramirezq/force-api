@@ -12,12 +12,14 @@
   "dependencies": {
     "@effect/schema": "^0.74.0",
     "@types/aws-lambda": "^8.10.145",
+    "@types/swagger-ui-express": "^4.1.6",
     "@types/uuid": "^10.0.0",
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "express": "^4.19.2",
     "serverless-dynamodb": "^0.2.54",
     "serverless-http": "^3.2.0",
+    "swagger-ui-express": "^5.0.1",
     "typescript": "^5.6.2",
     "uuid": "^10.0.0"
   },

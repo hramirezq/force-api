@@ -66,11 +66,13 @@ Which should result in the following response:
 The easiest way to develop and test your function is to use the `dev` command:
 
 ```
-serverless dev
+npm run dev
 ```
 
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
+### Tests
 
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
+The easiest way to develop and test your function is to use the `dev` command:
 
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+```
+npm run test
+```

@@ -49,6 +49,7 @@ build:
 package:
   exclude:
     - node_modules/**
+    - tests/**
 resources:
   Resources:
     PeopleTable:

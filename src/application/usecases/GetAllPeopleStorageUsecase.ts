@@ -12,9 +12,7 @@ export class GetAllPeopleStorageUsecase {
     }
 
     async run(){
-        console.log("llega aqui")
         let people = await this.getAllPeopleHandler.handler();
-        console.log("llega aqui people", people)
         if(people == null || people.length < 0){
             return [];
         }

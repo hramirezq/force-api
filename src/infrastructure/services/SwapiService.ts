@@ -4,9 +4,7 @@ import {ExternalApiService} from "../../domain/services/ExternalApiService";
 
 export class SwapiService implements ExternalApiService{
     async getPeopleById(id: number) {
-        console.log("init axios: ", id);
         const response = await axios.get(`https://swapi.dev/api/people/${id}`);
-        console.log("response axios: ", response);
         if (response.status === 200) {
             let people = new PeopleEntity(
                 "",

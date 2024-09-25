@@ -10,7 +10,6 @@ export class GetAllPeopleMapper {
     }
 
     fromEntitiesToOutput(listObject: Array<PeopleEntity>): Array<GetPeopleOutput>{
-        console.log("fromEntitiesToOutput", listObject);
         let output: Array<GetPeopleOutput> = [];
         for (let object of listObject) {
             let translatedObject = this.translateService.translateFromEnglishToSpanish(object);

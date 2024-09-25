@@ -46,7 +46,6 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
 
       try {
           const result = await dynamoDB.scan(params).promise();
-          console.log("result from dynamodb",result)
           if (result.Items && result.Items.length > 0) {
               return result.Items[0] as PeopleEntity;
           }

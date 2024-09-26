@@ -10,7 +10,7 @@ export class GetPeopleMapper {
         this.translateService = translateService;
     }
 
-    fromEntityToOutput(object: PeopleEntity | CreatePeopleCommand): GetPeopleOutput{
+    fromEntityToOutput(object: PeopleEntity | CreatePeopleCommand | any): GetPeopleOutput{
         return this.translateService.translateFromEnglishToSpanish(object);
     }
 

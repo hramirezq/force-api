@@ -1,9 +1,7 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {GetPeopleInput} from "../inputs/GetPeopleInput";
 import {GetPeopleByIdQuery} from "../../../application/queries/GetPeopleByIdQuery";
-import {GetPeopleByIdHandler} from "../../../application/queries/GetPeopleByIdHandler";
 import {PeopleRepository as PeopleRepositoryInterface} from "../../../domain/repositories/PeopleRepository";
-import {TranslateService} from "../../../domain/services/TranslateService";
 import {GetPeopleMapper} from "../../mappers/GetPeopleMapper";
 import {GetPeopleOutput} from "../outputs/GetPeopleOutput";
 import {DynamoDBPeopleRepository} from "../../repositories/DynamoDBPeopleRepository";
@@ -11,6 +9,7 @@ import {TranslateServiceImpl} from "../../services/TranslateServiceImpl";
 import {GetPeopleByIdUsecase} from "../../../application/usecases/GetPeopleByIdUsecase";
 import {ExternalApiService} from "../../../domain/services/ExternalApiService";
 import {SwapiService} from "../../services/SwapiService";
+import {CreatePeopleCommand} from "../../../application/commands/CreatePeopleCommand";
 
 export class GetPeopleFunction{
   private readonly peopleRepository : PeopleRepositoryInterface;
@@ -37,10 +36,14 @@ export class GetPeopleFunction{
     const useCase = new GetPeopleByIdUsecase(this.peopleRepository, this.externalApiService);
     const query = new GetPeopleByIdQuery(Number(id));
     let people = await useCase.run(query);
+    console.log("USE CASE run", JSON.stringify(people, null, 2));
     if(!people) {
       return { statusCode: 404, body: 'People not found' };
     }
-    const peopleTranslate = this.getPeopleMapper.fromEntityToOutput(people);
+    let peopleJson = people.toJSON;
+    const peopleTranslate = this.getPeopleMapper.fromEntityToOutput(peopleJson);
+
+    console.log("USE CASE peopleTranslate", JSON.stringify(peopleTranslate, null, 2));
     return {
       statusCode: 200,
       body: JSON.stringify(peopleTranslate),

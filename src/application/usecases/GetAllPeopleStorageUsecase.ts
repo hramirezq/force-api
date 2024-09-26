@@ -1,4 +1,3 @@
-import {GetPeopleByIdQuery} from "../queries/GetPeopleByIdQuery";
 import {PeopleRepository as PeopleRepositoryInterface} from "../../domain/repositories/PeopleRepository";
 import {GetAllPeopleHandler} from "../queries/GetAllPeopleHandler";
 

@@ -1,4 +1,5 @@
-export interface People {
+export interface PeopleInterface {
+    uuid: string;
     id: number;
     birth_year: string;
     eye_color: string;
@@ -9,7 +10,5 @@ export interface People {
     mass: string;
     name: string;
     skin_color: string;
-    species: string[];
-    starships: string[];
     url: string;
 }

@@ -1,6 +1,7 @@
 import {CreatePeopleCommand} from "./CreatePeopleCommand";
 import {PeopleRepository} from "../../domain/repositories/PeopleRepository";
 import {PeopleEntity} from "../../domain/entities/PeopleEntity";
+import {PeopleInterface} from "../../domain/interfaces/PeopleInterface";
 
 export class CreatePeopleHandler {
     private peopleRepository: PeopleRepository;
@@ -10,25 +11,23 @@ export class CreatePeopleHandler {
     }
 
     async handler(command: CreatePeopleCommand) {
-        const people = new PeopleEntity(
-            "",
-            command.id,
-            command.birth_year,
-            command.eye_color,
-            command.films,
-            command.gender,
-            command.hair_color,
-            command.height,
-            command.homeworld,
-            command.mass,
-            command.name,
-            command.skin_color,
-            command.species,
-            command.starships,
-            command.url,
-            command.vehicles,
-        );
-        await this.peopleRepository.save(people);
+        const people: PeopleInterface = {
+            uuid: command.uuid,
+            id: command.id,
+            birth_year: command.birth_year,
+            eye_color: command.eye_color,
+            gender: command.gender,
+            hair_color: command.hair_color,
+            height: command.height,
+            homeworld: command.homeworld,
+            mass: command.mass,
+            name: command.name,
+            skin_color: command.skin_color,
+            url: command.url
+        };
+        const peopleEntity = new PeopleEntity(people, command.species, command.starships, command.vehicles, command.films);
+        console.log("handler people after updates: ", JSON.stringify(peopleEntity, null, 2));
+        await this.peopleRepository.save(peopleEntity);
     }
 
 

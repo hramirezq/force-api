@@ -1,6 +1,5 @@
 import {PeopleRepository} from "../../domain/repositories/PeopleRepository";
 import {GetPeopleByIdQuery} from "./GetPeopleByIdQuery";
-import {PeopleEntity} from "../../domain/entities/PeopleEntity";
 
 export class GetPeopleByIdHandler {
     private peopleRepository: PeopleRepository;

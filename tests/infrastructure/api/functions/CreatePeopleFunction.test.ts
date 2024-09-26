@@ -6,6 +6,11 @@ import {CreatePeopleHandler} from "../../../../src/application/commands/CreatePe
 import {CreatePeopleCommand} from "../../../../src/application/commands/CreatePeopleCommand";
 import {CreatePeopleMapper} from "../../../../src/infrastructure/mappers/CreatePeopleMapper";
 import {CreatePeopleInput} from "../../../../src/infrastructure/api/inputs/CreatePeopleInput";
+import {PeopleInterface} from "../../../../src/domain/interfaces/PeopleInterface";
+import {SpecieInterface} from "../../../../src/domain/interfaces/SpecieInterface";
+import {StarshipInterface} from "../../../../src/domain/interfaces/StarshipInterface";
+import {VehicleInterface} from "../../../../src/domain/interfaces/VehicleInterface";
+import {FilmInterface} from "../../../../src/domain/interfaces/FilmInterface";
 
 jest.mock('../../../../src/application/commands/CreatePeopleHandler');
 jest.mock('../../../../src/infrastructure/mappers/CreatePeopleMapper');
@@ -35,23 +40,25 @@ describe('CreatePeopleFunction', () => {
             body: JSON.stringify({ name: 'John Doe', age: 30 })
         } as APIGatewayProxyEvent;
 
-        const mockCommand = {
+        const people: PeopleInterface = {
+            uuid: "1",
             id: 1,
-            birth_year: "19 BBY",
-            eye_color: "Blue",
-            films: ["https://swapi.dev/api/films/1/",],
-            gender: "Male",
-            hair_color: "Blond",
+            birth_year: "19BBY",
+            eye_color: "blue",
+            gender: "male",
+            hair_color: "blond",
             height: "172",
             homeworld: "https://swapi.dev/api/planets/1/",
             mass: "77",
             name: "Luke Skywalker",
-            skin_color: "Fair",
-            species: [ "https://swapi.dev/api/species/1/"],
-            starships: [ "https://swapi.dev/api/starships/12/",],
-            url:  "https://swapi.dev/api/people/1/",
-            vehicles: [ "https://swapi.dev/api/vehicles/14/"],
-        } as CreatePeopleCommand;
+            skin_color: "fair",
+            url: "https://swapi.dev/api/people/1/"
+        };
+        const specieInterface: SpecieInterface[] =  [{ url: "https://swapi.dev/api/species/1/" }];
+        const starship: StarshipInterface[] =  [{ url: "hhttps://swapi.dev/api/starships/12/" }];
+        const vehicle: VehicleInterface[] =  [{ url: "https://swapi.dev/api/vehicles/14/" }];
+        const film: FilmInterface[] =  [{ url: "https://swapi.dev/api/vehicles/14/" }];
+        const mockCommand = new CreatePeopleCommand(people, specieInterface, starship, vehicle, film);
 
         (CreatePeopleInput.validate as jest.Mock).mockReturnValue('');
         mockCreatePeopleMapper.fromInputToCommand.mockReturnValue(mockCommand);

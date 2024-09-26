@@ -6,6 +6,19 @@ import {GetPeopleByIdUsecase} from "../../../../src/application/usecases/GetPeop
 import {APIGatewayProxyEvent} from "aws-lambda";
 import {GetPeopleInput} from "../../../../src/infrastructure/api/inputs/GetPeopleInput";
 import {GetPeopleByIdQuery} from "../../../../src/application/queries/GetPeopleByIdQuery";
+import {PeopleInterface} from "../../../../src/domain/interfaces/PeopleInterface";
+import {SpecieInterface} from "../../../../src/domain/interfaces/SpecieInterface";
+import {StarshipInterface} from "../../../../src/domain/interfaces/StarshipInterface";
+import {VehicleInterface} from "../../../../src/domain/interfaces/VehicleInterface";
+import {FilmInterface} from "../../../../src/domain/interfaces/FilmInterface";
+import {CreatePeopleCommand} from "../../../../src/application/commands/CreatePeopleCommand";
+import {PeopleEntity} from "../../../../src/domain/entities/PeopleEntity";
+import {PeopleInputInterfaz} from "../../../../src/infrastructure/api/interfaces/PeopleInputInterfaz";
+import {EspecieInterfaz} from "../../../../src/infrastructure/api/interfaces/EspecieInterfaz";
+import {NaveInterfaz} from "../../../../src/infrastructure/api/interfaces/NaveInterfaz";
+import {VehiculoInterfaz} from "../../../../src/infrastructure/api/interfaces/VehiculoInterfaz";
+import {PeliculaInterfaz} from "../../../../src/infrastructure/api/interfaces/PeliculaInterfaz";
+import {GetPeopleOutput} from "../../../../src/infrastructure/api/outputs/GetPeopleOutput";
 
 jest.mock('../../../../src/infrastructure/api/inputs/GetPeopleInput');
 jest.mock('../../../../src/application/usecases/GetPeopleByIdUsecase');
@@ -39,28 +52,31 @@ describe('GetPeopleFunction', () => {
             pathParameters: { id: '1' }
         } as unknown as APIGatewayProxyEvent;
 
-        const mockPerson = {
+        const people: PeopleInterface = {
+            uuid: "1",
             id: 1,
-            birth_year: "19 BBY",
-            eye_color: "Blue",
-            films: ["https://swapi.dev/api/films/1/",],
-            gender: "Male",
-            hair_color: "Blond",
+            birth_year: "19BBY",
+            eye_color: "blue",
+            gender: "male",
+            hair_color: "blond",
             height: "172",
             homeworld: "https://swapi.dev/api/planets/1/",
             mass: "77",
             name: "Luke Skywalker",
-            skin_color: "Fair",
-            species: [ "https://swapi.dev/api/species/1/"],
-            starships: [ "https://swapi.dev/api/starships/12/",],
-            url:  "https://swapi.dev/api/people/1/",
-            vehicles: [ "https://swapi.dev/api/vehicles/14/"],
+            skin_color: "fair",
+            url: "https://swapi.dev/api/people/1/"
         };
-        const mockTranslatedPerson = {
+        const specieInterface: SpecieInterface[] =  [{ url: "https://swapi.dev/api/species/1/" }];
+        const starship: StarshipInterface[] =  [{ url: "hhttps://swapi.dev/api/starships/12/" }];
+        const vehicle: VehicleInterface[] =  [{ url: "https://swapi.dev/api/vehicles/14/" }];
+        const film: FilmInterface[] =  [{ url: "https://swapi.dev/api/vehicles/14/" }];
+
+        const mockPerson = new PeopleEntity(people, specieInterface, starship, vehicle, film);
+
+        const peopleTranslated: PeopleInputInterfaz = {
             id: 1,
             año_de_nacimiento: "19 BBY",
             color_de_ojos: "Blue",
-            peliculas: ["https://swapi.dev/api/films/1/",],
             genero: "Male",
             color_de_pelo: "Blond",
             peso: "172",
@@ -68,11 +84,13 @@ describe('GetPeopleFunction', () => {
             masa: "77",
             nombre: "Luke Skywalker",
             color_de_piel: "Fair",
-            especies: [ "https://swapi.dev/api/species/1/"],
-            naves: [ "https://swapi.dev/api/starships/12/",],
             url:  "https://swapi.dev/api/people/1/",
-            vehiculos: [ "https://swapi.dev/api/vehicles/14/"],
-        };
+        }
+        const especieInterfaz: EspecieInterfaz[] =  [{ url: "https://swapi.dev/api/species/1/" }];
+        const naveInterfaz: NaveInterfaz[] =  [{ url: "https://swapi.dev/api/starships/12/" }];
+        const vehiculoInterfaz: VehiculoInterfaz[] =  [{ url: "https://swapi.dev/api/vehicles/14/" }];
+        const peliculaInterfaz: PeliculaInterfaz[] =  [{ url: "https://swapi.dev/api/films/1/" }];
+        const mockTranslatedPerson = new GetPeopleOutput(peopleTranslated,especieInterfaz,naveInterfaz,vehiculoInterfaz,peliculaInterfaz);
 
         (GetPeopleInput.validate as jest.Mock).mockReturnValue('');
         mockGetPeopleByIdUsecase.run.mockResolvedValue(mockPerson);

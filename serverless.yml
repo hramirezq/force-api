@@ -14,9 +14,7 @@ provider:
     DEBUG: ${env:DEBUG, 0}
     STAGE: ${env:STAGE, "prod"}
     DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
-  credentials:
-    accessKeyId: ${env:AWS_ACCESS_KEY_ID}
-    secretAccessKey: ${env:AWS_SECRET_ACCESS_KEY}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -54,9 +52,10 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-offline
 
-build:
-  esbuild: false
+#build:
+#  esbuild: false
 package:
+  exclude:
     - tests/**
 resources:
   Resources:

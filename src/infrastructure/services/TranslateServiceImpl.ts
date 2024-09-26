@@ -4,6 +4,7 @@ import {dictionaryEnglishToSpanish} from "../mappers/DictionaryEnglishToSpanish"
 
 export class TranslateServiceImpl<Type> implements TranslateService<Type> {
     translateFromEnglishToSpanish(englishObject: any): Type {
+        console.log("objeto antes de ser traducido",englishObject);
         let test = this.translate<Type>(englishObject, dictionaryEnglishToSpanish);
         console.log("objeto en espalo",test);
         console.log("TranslateServiceImpl englishObject", JSON.stringify(test, null, 2));

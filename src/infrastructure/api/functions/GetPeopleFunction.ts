@@ -40,8 +40,7 @@ export class GetPeopleFunction{
     if(!people) {
       return { statusCode: 404, body: 'People not found' };
     }
-    let peopleJson = people.toJSON;
-    const peopleTranslate = this.getPeopleMapper.fromEntityToOutput(peopleJson);
+    const peopleTranslate = this.getPeopleMapper.fromEntityToOutput(people);
 
     console.log("USE CASE peopleTranslate", JSON.stringify(peopleTranslate, null, 2));
     return {

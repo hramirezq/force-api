@@ -48,6 +48,6 @@ export class GetPeopleByIdUsecase {
         let command = new CreatePeopleCommand(peopleInterface, responseApi.species, responseApi.starships, responseApi.vehicles, responseApi.films);
         console.log("handler people after updates: ", JSON.stringify(command, null, 2));
         await this.createPeopleHandler.handler(command);
-        return command;
+        return command.toJSON();
     }
 }

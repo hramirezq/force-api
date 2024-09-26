@@ -9,7 +9,7 @@ This project implements an API using hexagonal architecture, CQRS pattern, and s
 - Node.js (v14 or later)
 - npm or yarn
 - AWS CLI configured with your credentials
-- serverless
+- serverless (npm i serverless -g)
 
 ### Installation
 

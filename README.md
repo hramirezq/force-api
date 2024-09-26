@@ -68,3 +68,18 @@ Run the tests using:
 npm test
 ```
 
+## Local endpoints
+```
+│   POST | http://localhost:3000/dev/people                                      
+│   GET  | http://localhost:3000/dev/people/{id}                                 
+│   GET  | http://localhost:3000/dev/people                                      
+│   
+```
+
+## AWS endpoints
+```
+│  POST - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people
+│  GET - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people/{id}
+│  GET - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people                                    
+
+```                                                                   

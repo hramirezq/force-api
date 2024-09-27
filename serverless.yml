@@ -73,21 +73,21 @@ resources:
 
 functions:
   createPeople:
-    handler: src/infrastructure/api/functions/CreatePeopleFunction.createPeople
+    handler: src/handlers/CreatePeopleHandler.createPeople
     timeout: 30
     events:
       - http:
           path: people
           method: post
   getPeople:
-    handler: src/infrastructure/api/functions/GetPeopleFunction.getPeople
+    handler: src/handlers/GetPeopleHandler.getPeople
     timeout: 30
     events:
       - http:
           path: people/{id}
           method: get
   getAllPeople:
-    handler: src/infrastructure/api/functions/GetAllPeopleStorageFunction.getAllPeople
+    handler: src/handlers/GetAllPeopleHandler.getAllPeople
     timeout: 30
     events:
       - http:

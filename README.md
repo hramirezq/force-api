@@ -27,7 +27,6 @@ This project implements an API using hexagonal architecture, CQRS pattern, and s
 3. Set up environment variables:
    Create a `.env` file in the root directory with the following content:
    ```
-   STAGE=dev
    REGION=us-east-1
    DYNAMODB_TABLE=your-table-name
    ```
@@ -91,3 +90,6 @@ To see the implementation with a clean architecture, go to clean-architecture br
 ```
 git checkout clean-architecture
 ```                                                                   
+
+## Simple Use case
+Using simple case, refer to the URL: https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people (using postman), if you do not get data, refer to the following url https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people/{id}, which will connect to SWAPI and start saving the data locally.

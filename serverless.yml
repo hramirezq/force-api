@@ -49,14 +49,11 @@ custom:
     noPrependStageInUrl: true
 
 plugins:
-#  - serverless-plugin-typescript
   - serverless-dynamodb
   - serverless-dotenv-plugin
   - serverless-offline
   - serverless-auto-swagger
 
-#build:
-#  esbuild: false
 package:
   exclude:
     - tests/**

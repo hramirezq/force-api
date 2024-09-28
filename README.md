@@ -83,3 +83,11 @@ npm test
 │  GET - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people                                    
 
 ```                                                                   
+
+## Clean architecture
+
+To see the implementation with a clean architecture, go to clean-architecture branch
+
+```
+git checkout clean-architecture
+```                                                                   

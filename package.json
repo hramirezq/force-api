@@ -20,9 +20,9 @@
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "express": "^4.19.2",
+    "serverless-auto-swagger": "^3.0.0",
     "serverless-dynamodb": "^0.2.54",
     "serverless-http": "^3.2.0",
-    "swagger-ui-express": "^5.0.1",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

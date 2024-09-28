@@ -1,5 +1,5 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {PeopleSpanish} from "../infrastructure/translated-models/PeopleSpanish";
+import {PeopleSpanish} from "../infrastructure/translated-objects/PeopleSpanish";
 import {PeopleAdapter} from "../adapters/PeopleAdapter";
 import {DynamoDBPeopleRepository} from "../infrastructure/repositories/DynamoDBPeopleRepository";
 import { v4 as uuidv4 } from "uuid";
@@ -53,6 +53,9 @@ export class CreatePeopleHandler {
     }
 
     public validate(data: PeopleSpanish): string {
+        if (!data.id) {
+            return "El campo id es requerido.";
+        }
         if (!data.nombre) {
             return "El campo nombre es requerido.";
         }

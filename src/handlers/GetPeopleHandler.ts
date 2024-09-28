@@ -1,7 +1,7 @@
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {PeopleAdapter} from "../adapters/PeopleAdapter";
 import {DynamoDBPeopleRepository} from "../infrastructure/repositories/DynamoDBPeopleRepository";
-import {PeopleSpanish} from "../infrastructure/translated-models/PeopleSpanish";
+import {PeopleSpanish} from "../infrastructure/translated-objects/PeopleSpanish";
 import {ExternalApiService} from "../services/ExternalApiService";
 import {PeopleModel} from "../infrastructure/models/PeopleModel";
 import {v4 as uuidv4} from "uuid";
@@ -80,12 +80,12 @@ export class GetPeopleHandler {
         if (id == undefined) {
             return "El identificador es requerido."
         }
-        let numberId = Number(id)
+        let numberId = Number(id) || 0;
         if (numberId == null) {
-            return "El identificador es requerido."
+            return "El identificador es requerido o no puede ser menor que cero."
         }
-        if (numberId < 0) {
-            return "El identificador no puede ser menor que cero."
+        if (numberId <= 0) {
+            return "El identificador es requerido o no puede ser menor que cero."
         }
         return "";
     }

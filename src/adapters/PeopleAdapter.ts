@@ -1,6 +1,6 @@
 import { PeopleModel } from "../infrastructure/models/PeopleModel";
 import {TranslateService} from "../services/TranslateService";
-import {PeopleSpanish} from "../infrastructure/translated-models/PeopleSpanish";
+import {PeopleSpanish} from "../infrastructure/translated-objects/PeopleSpanish";
 
 export class PeopleAdapter {
     private translateService: TranslateService<PeopleModel, PeopleSpanish>;

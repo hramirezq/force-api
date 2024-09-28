@@ -45,12 +45,15 @@ custom:
     watch:
       pattern: [ 'src/**/*.ts' ] # match only typescript files in src directory
       ignore: [ 'temp/**/*' ]
+  serverless-offline:
+    noPrependStageInUrl: true
 
 plugins:
 #  - serverless-plugin-typescript
   - serverless-dynamodb
   - serverless-dotenv-plugin
   - serverless-offline
+  - serverless-auto-swagger
 
 #build:
 #  esbuild: false

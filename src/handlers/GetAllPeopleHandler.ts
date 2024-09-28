@@ -3,7 +3,7 @@ import {DynamoDBPeopleRepository} from "../infrastructure/repositories/DynamoDBP
 import {PeopleAdapter} from "../adapters/PeopleAdapter";
 import {TranslateService} from "../services/TranslateService";
 import {PeopleModel} from "../infrastructure/models/PeopleModel";
-import {PeopleSpanish} from "../infrastructure/translated-models/PeopleSpanish";
+import {PeopleSpanish} from "../infrastructure/translated-objects/PeopleSpanish";
 
 export class GetAllPeopleHandler{
     private readonly peopleRepository : DynamoDBPeopleRepository;

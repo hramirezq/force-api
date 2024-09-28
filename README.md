@@ -77,9 +77,9 @@ npm test
 
 ## AWS endpoints
 ```
-│  POST - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people
-│  GET - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people/{id}
-│  GET - https://qdzaqjsx7a.execute-api.us-east-1.amazonaws.com/prod/people                                    
+│  POST - https://09yh4h36dk.execute-api.us-east-1.amazonaws.com/prod/people
+│  GET - https://09yh4h36dk.execute-api.us-east-1.amazonaws.com/prod/people/{id}
+│  GET - https://09yh4h36dk.execute-api.us-east-1.amazonaws.com/prod/people                                 
 
 ```                                                                   
 

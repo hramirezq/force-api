@@ -26,7 +26,6 @@ export class CreatePeopleHandler {
             url: command.url
         };
         const peopleEntity = new PeopleEntity(people, command.species, command.starships, command.vehicles, command.films);
-        console.log("handler people after updates: ", JSON.stringify(peopleEntity, null, 2));
         await this.peopleRepository.save(peopleEntity);
     }
 

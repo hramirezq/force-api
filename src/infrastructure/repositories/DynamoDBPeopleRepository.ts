@@ -16,10 +16,8 @@ export class DynamoDBPeopleRepository implements PeopleRepository {
   private readonly tableName = 'Peoples';
 
   async save(people: PeopleEntity): Promise<void> {
-    console.log("repo people before updates: ", JSON.stringify(people, null, 2));
     const uuid = uuidv4();
     people.uuid = uuid;
-      console.log("repo people after updates: ", people.toJSON());
     await dynamoDB.put({
       TableName: this.tableName,
       Item: people.toJSON(),

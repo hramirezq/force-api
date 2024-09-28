@@ -36,13 +36,10 @@ export class GetPeopleFunction{
     const useCase = new GetPeopleByIdUsecase(this.peopleRepository, this.externalApiService);
     const query = new GetPeopleByIdQuery(Number(id));
     let people = await useCase.run(query);
-    console.log("USE CASE run", JSON.stringify(people, null, 2));
     if(!people) {
       return { statusCode: 404, body: 'People not found' };
     }
     const peopleTranslate = this.getPeopleMapper.fromEntityToOutput(people);
-
-    console.log("USE CASE peopleTranslate", JSON.stringify(peopleTranslate, null, 2));
     return {
       statusCode: 200,
       body: JSON.stringify(peopleTranslate),

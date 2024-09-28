@@ -44,9 +44,7 @@ export class GetPeopleByIdUsecase {
                 skin_color: responseApi.skin_color,
                 url: responseApi.url,
         }
-        console.log("ptmre");
         let command = new CreatePeopleCommand(peopleInterface, responseApi.species, responseApi.starships, responseApi.vehicles, responseApi.films);
-        console.log("handler people after updates: ", JSON.stringify(command, null, 2));
         await this.createPeopleHandler.handler(command);
         return command.toJSON();
     }
